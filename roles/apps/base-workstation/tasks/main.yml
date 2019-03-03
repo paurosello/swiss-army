@@ -19,6 +19,6 @@
   become: yes
   become_user: "{{ target_user }}"
   git:
-    repo: "git@github.com:paurosello/swiss-army.git"
+    repo: "https://github.com/paurosello/swiss-army.git"
     dest: "{{ user_home_dir }}/git/swiss-army"
     update: no
