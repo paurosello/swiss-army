@@ -15,11 +15,3 @@
   with_items:
     - bashrc
     - bash_profile
-
-- name: add Taskwarrior user Bash auto-completion script
-  copy:
-    src: "{{ role_path }}/files/task.sh"
-    dest: "{{ user_home_dir }}/.bash_completion.d/task.sh"
-    group: "{{ target_user }}"
-    owner: "{{ target_user }}"
-    mode: 0775

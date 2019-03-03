@@ -2,15 +2,21 @@
 - name: import third-party repository signing keys
   rpm_key: key={{ item }} state=present
   loop:
-    - https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-    - https://negativo17.org/repos/RPM-GPG-KEY-slaanesh
+    - https://dl-ssl.google.com/linux/linux_signing_key.pub
 
-- name: add/upgrade RPM Fusion repositories
+- name: install selinux
+  package:
+    state: present
+    name:
+      - libselinux-python
+
+- name: add/upgrade RPM repositories
   package:
     state: latest
     name:
       - https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ fedora_version }}.noarch.rpm
       - https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ fedora_version }}.noarch.rpm
+      - https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 
 - name: add other third-party repositories
   get_url:
@@ -19,9 +25,7 @@
     setype: system_conf_t
     seuser: system_u
   loop:
-    - https://negativo17.org/repos/fedora-flash-plugin.repo
     - https://negativo17.org/repos/fedora-spotify.repo
-    - https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 
 - name: install base packages
   ### Package notes ###
@@ -35,72 +39,33 @@
   package:
     state: present
     name:
-      - https://dl.google.com/linux/direct/google-musicmanager-beta_current_x86_64.rpm
       - ansible
-      - arandr
       - bash-completion
-      - blueman
-      - brasero
-      - brasero-nautilus
       - buildah
-      - chromaprint-tools
-      - copr-cli
       - docker
       - docker-compose
-      - epiphany
       - fedpkg
       - fedora-packager
-      - feh
       - ffmpeg
       - firewalld
-      - flash-plugin
       - git
-      - gnome-shell-extension-pomodoro
-      - gobby05
       - golang
       - google-roboto-slab-fonts
       - gstreamer-ffmpeg
       - gstreamer1-plugins-bad-free-extras
       - gstreamer1-plugins-bad-nonfree
       - gstreamer1-plugins-ugly
-      - hexchat
       - htop
-      - inkscape
-      - java-11-openjdk
       - jpegoptim
       - jq
-      - libselinux-python
       - libvirt
       - libvirt-devel
       - meld
-      - mpv
-      - nautilus-dropbox
       - network-manager-applet
-      - nodejs-yarn
-      - overpass-fonts
-      - overpass-mono-fonts
-      - pandoc
-      - pass
-      - pavucontrol
-      - picard
       - podman
-      - poppler-utils
       - powerline-fonts
       - pulseaudio-utils
-      - python2-flake8
-      - python3-flake8
-      - ripright
-      - rpmconf
-      - smartmontools
       - spotify-client
-      - strace
-      - sublime-text
       - telegram-desktop
-      - typetype-molot-fonts
-      - '@vagrant'
-      - vagrant-doc
-      - vagrant-sshfs
       - '@virtualization'
-      - visualboyadvance-m
-      - yamllint
-      - youtube-dl
+      - google-chrome-stable

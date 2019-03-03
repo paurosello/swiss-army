@@ -1,17 +1,2 @@
-cortana.justinwflory.com
-derezzed.justinwflory.com
-estrella.justinwflory.com
-fossrit.community
-horizon.justinwflory.com
-irc-lug.rit.edu
-
 [workstation]
 127.0.0.1 ansible_connection=local
-
-[servers-centos]
-cortana
-derezzed
-estrella
-fossrit.community
-horizon
-irc-lug.rit.edu

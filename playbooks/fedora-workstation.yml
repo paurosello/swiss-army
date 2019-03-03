@@ -8,14 +8,21 @@
     - system/fedora-workstation
     - apps/base-workstation
     - apps/bash
-    - apps/dunst
     - apps/git
-    - apps/i3wm
-    - apps/minecraft
-    - apps/npm
     - apps/powerline-go
     - apps/ssh
-    - apps/task
-    - apps/thunderbird
-    - apps/tmux
     - apps/vim
+    - role: gantsign.visual-studio-code
+      users:
+        - username: pau
+          visual_studio_code_extensions:
+            - streetsidesoftware.code-spell-checker
+            - wholroyd.jinja
+            - ms-python.python
+          visual_studio_code_settings: {
+            "editor.rulers": [80, 100, 120],
+            "editor.renderWhitespace": true,
+            "files.associations": {
+              "Vagrantfile": "ruby"
+            }
+          }

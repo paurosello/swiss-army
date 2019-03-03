@@ -1,8 +1,5 @@
 ---
 hostnames:
-  desktop: ff.justinwflory.com
-  laptop: fossbook.justinwflory.com
+  desktop: desktop.pau
+  laptop: laptop.pau
 fedora_version: 29
-
-xrandr_params:
-  primary_output: HDMI-2

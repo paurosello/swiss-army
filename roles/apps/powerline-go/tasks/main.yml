@@ -6,17 +6,17 @@
   become_user: "{{ target_user }}"
   shell: "go get -u github.com/justjanne/powerline-go"
   args:
-    creates: "{{ user_home_dir }}/wkspc/go/bin/powerline-go"
+    creates: "{{ user_home_dir }}/workspace/go/bin/powerline-go"
 
 - name: (hack) move powerline-go to correct path
   become_user: "{{ target_user }}"
-  command: "mv {{ user_home_dir }}/go {{ user_home_dir }}/wkspc/go"
+  command: "mv {{ user_home_dir }}/go {{ user_home_dir }}/workspace/go"
   args:
-    creates: "{{ user_home_dir }}/wkspc/go"
+    creates: "{{ user_home_dir }}/workspace/go"
     removes: "{{ user_home_dir }}/go"
 
 - name: (hack) create powerline-go system-level symbolic link
   file:
     state: link
-    src: "{{ user_home_dir }}/wkspc/go/bin/powerline-go"
+    src: "{{ user_home_dir }}/workspace/go/bin/powerline-go"
     dest: "/usr/bin/powerline-go"

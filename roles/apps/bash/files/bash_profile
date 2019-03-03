@@ -9,5 +9,5 @@ fi
 
 eval $(ssh-agent)  # required for desktop ssh-agent to work as expected
 
-export GOPATH=$HOME/wkspc/go
-export PATH=$PATH:$HOME/.local/bin:$HOME/wkspc/bin:$GOPATH/bin:$HOME/.npm-global/bin
+export GOPATH=$HOME/workspace/go
+export PATH=$PATH:$HOME/.local/bin:$HOME/workspace/bin:$GOPATH/bin:$HOME/.npm-global/bin

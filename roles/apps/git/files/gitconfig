@@ -27,7 +27,7 @@
     sync-fork-master = !git pull upstream master && git push
 
 [commit]
-	gpgsign = true
+	gpgsign = false
 [core]
 	editor = vim
 [diff]
@@ -45,10 +45,5 @@
 [sendemail]
 	smtpencryption = tls
 [user]
-	name = Justin W. Flory
-	email = git@jwf.io
-	signingkey = 39E45FB6014131E4
-[includeIf "gitdir:~/git/jump/"]
-  path = .gitconfig-jump
-[includeIf "gitdir:~/git/unicef/"]
-  path = .gitconfig-unicef
+	name = Pau Rosello Van Schoor
+	email = paurosello@gmail.com
