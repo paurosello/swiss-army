@@ -45,7 +45,6 @@
       state: directory
 
 - name: Daemon Reload
-  become_user: pau
   command: systemctl daemon-reload
 
 - name: Configure MariaDB Limits
@@ -66,3 +65,17 @@
     name: redis.service
     state: restarted
     enabled: yes
+
+- name: Clone bench repo
+  become: yes
+  become_user: "{{ target_user }}"
+  git:
+    repo: "https://github.com/frappe/bench"
+    dest: "{{ user_home_dir }}/.bench-repo"
+    update: no
+    depth: 1
+
+- name: Install bench
+  become: yes
+  become_user: "{{ target_user }}"
+  shell: sudo pip install -e {{ user_home_dir }}/.bench-repo
