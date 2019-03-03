@@ -1,0 +1,12 @@
+---
+- name: Get fzf
+  become_user: "{{ target_user }}"
+  git:
+    repo: 'https://github.com/junegunn/fzf.git'
+    dest: /home/{{ target_user }}/.fzf
+    version: master
+    depth: 1
+
+- name: Install FZF
+  become_user: pau
+  command: /home/{{ target_user }}/.fzf/install --all

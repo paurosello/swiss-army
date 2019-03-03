@@ -10,6 +10,7 @@
     - apps/bash
     - apps/git
     - apps/powerline-go
+    - apps/fzf
     - apps/ssh
     - apps/vim
     - role: gantsign.visual-studio-code

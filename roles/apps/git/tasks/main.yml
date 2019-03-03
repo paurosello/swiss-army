@@ -7,5 +7,3 @@
     owner: "{{ target_user }}"
   with_items:
     - gitconfig
-    - gitconfig-jump
-    - gitconfig-unicef

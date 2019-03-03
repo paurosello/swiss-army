@@ -48,6 +48,7 @@
       - fedora-packager
       - ffmpeg
       - firewalld
+      - fzf
       - git
       - golang
       - google-roboto-slab-fonts
