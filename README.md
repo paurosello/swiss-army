@@ -29,3 +29,23 @@ See [`docs/how-to-use.adoc`](https://github.com/jwflory/swiss-army/blob/master/d
     ansible-galaxy -K install -r requirements.yaml
     ansible-playbook -K playbooks/fedora-workstation.yml
 ```
+
+## Configure MariaDB
+```
+    mysql_secure_installation
+```
+
+## Enable/Disable Redis and Mariadb
+```
+sudo systemctl start redis.service
+sudo systemctl enable redis.service
+sudo systemctl start mariadb.service
+sudo systemctl enable mariadb.service
+```
+
+```
+sudo systemctl start redis.service
+sudo systemctl enable redis.service
+sudo systemctl start mariadb.service
+sudo systemctl enable mariadb.service
+```

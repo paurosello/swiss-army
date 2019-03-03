@@ -1,0 +1,68 @@
+---
+- name: install base packages
+  package:
+    state: present
+    name:
+      - mariadb
+      - mariadb-server
+      - mariadb-devel
+      - python-setuptools
+      - nginx
+      - zlib-devel
+      - bzip2-devel
+      - openssl-devel
+      - postfix
+      - python-devel
+      - python-pip
+      - libxml2
+      - libxml2-devel
+      - libxslt
+      - libxslt-devel
+      - redis
+      - libXrender
+      - libXext
+      - supervisor
+      - cronie
+      - which
+      - xorg-x11-fonts-75dpi
+      - xorg-x11-fonts-Type1
+      - libjpeg-devel
+      - redhat-rpm-config
+      - python-crypto
+      - nodejs
+      - npm
+
+- name: Configure MariaDB
+  copy:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "/etc/my.cnf.d/{{ item }}"
+  with_items:
+    - bench.cnf
+
+- name: Configure MariaDB Limits Folder
+  file:
+      path: /etc/systemd/mariadb.service.d
+      state: directory
+
+- name: Daemon Reload
+  become_user: pau
+  command: systemctl daemon-reload
+
+- name: Configure MariaDB Limits
+  copy:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "/etc/systemd/mariadb.service.d/{{ item }}"
+  with_items:
+    - limits.conf
+
+- name: Enable and restart mariadb
+  systemd:
+    name: mariadb.service
+    state: restarted
+    enabled: yes
+
+- name: Enable and restart redis
+  systemd:
+    name: redis.service
+    state: restarted
+    enabled: yes

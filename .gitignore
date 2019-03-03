@@ -2,3 +2,4 @@
 *.retry
 
 Vagrantfile
+roles/gantsign.visual-studio-code
