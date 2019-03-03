@@ -35,9 +35,9 @@
 - name: Configure MariaDB
   copy:
     src: "{{ role_path }}/files/{{ item }}"
-    dest: "/etc/my.cnf.d/{{ item }}"
+    dest: "/etc/{{ item }}"
   with_items:
-    - bench.cnf
+    - my.cnf
 
 - name: Configure MariaDB Limits Folder
   file:
