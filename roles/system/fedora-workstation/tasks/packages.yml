@@ -52,6 +52,8 @@
       - git
       - golang
       - google-roboto-slab-fonts
+      - google-chrome-stable
+      - guake
       - gstreamer-ffmpeg
       - gstreamer1-plugins-bad-free-extras
       - gstreamer1-plugins-bad-nonfree
@@ -69,4 +71,3 @@
       - spotify-client
       - telegram-desktop
       - '@virtualization'
-      - google-chrome-stable
