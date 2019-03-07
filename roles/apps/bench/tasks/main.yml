@@ -32,6 +32,9 @@
       - nodejs
       - npm
 
+- name: Install yarn
+  command: npm install -g yarn
+
 - name: Configure MariaDB
   copy:
     src: "{{ role_path }}/files/{{ item }}"
