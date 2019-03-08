@@ -1,0 +1,3 @@
+---
+- name: Install Buttercup
+  command: rpm -i https://github.com/buttercup/buttercup-desktop/releases/download/v1.15.0/buttercup-desktop-1.15.0.x86_64.rpm

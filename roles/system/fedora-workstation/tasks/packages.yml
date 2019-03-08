@@ -76,6 +76,7 @@
       - kubectl
       - libvirt
       - libvirt-devel
+      - libappindicator
       - meld
       - network-manager-applet
       - podman

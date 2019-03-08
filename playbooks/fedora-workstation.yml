@@ -15,6 +15,7 @@
     - apps/vim
     - apps/bench
     - apps/krew
+    - apps/buttercup
     - role: gantsign.visual-studio-code
       users:
         - username: pau
@@ -22,6 +23,7 @@
             - streetsidesoftware.code-spell-checker
             - wholroyd.jinja
             - ms-python.python
+            - mauve.terraform
           visual_studio_code_settings: {
             "editor.rulers": [80, 100, 120],
             "editor.renderWhitespace": true,
