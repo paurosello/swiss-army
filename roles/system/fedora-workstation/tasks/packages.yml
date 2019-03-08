@@ -24,6 +24,7 @@
     dest: "/etc/yum.repos.d/{{ item }}"
   with_items:
     - kubernetes.repo
+    - gcloud.repo
 
 - name: add other third-party repositories
   get_url:
@@ -52,6 +53,7 @@
     state: present
     name:
       - ansible
+      - awscli
       - bash-completion
       - buildah
       - docker
@@ -65,6 +67,7 @@
       - golang
       - google-roboto-slab-fonts
       - google-chrome-stable
+      - google-cloud-sdk
       - guake
       - gstreamer-ffmpeg
       - gstreamer1-plugins-bad-free-extras
