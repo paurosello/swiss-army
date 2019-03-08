@@ -1,0 +1,57 @@
+---
+- name: Check if installed
+  stat:
+    path: /home/{{ target_user }}/.krew
+  register: krew_dir
+
+- name: Get krew installer
+  become_user: "{{ target_user }}"
+  get_url:
+    url: "https://storage.googleapis.com/krew/v0.2.1/krew.tar.gz"
+    dest: /tmp/krew.tar.gz
+  when: krew_dir.stat.exists == false
+
+- name: ensure tomcat directory exists
+  become_user: "{{ target_user }}"
+  file:
+    path: /tmp/krew
+    state: directory
+  when: krew_dir.stat.exists == false
+
+- name: Extract krew.tar.gz into /tmp/krew
+  become_user: "{{ target_user }}"
+  unarchive:
+    src: /tmp/krew.tar.gz
+    dest: /tmp/krew
+  when: krew_dir.stat.exists == false
+
+- name: Install Krew
+  become_user: "{{ target_user }}"
+  command: "/tmp/krew/krew-linux_amd64 install --manifest={{ role_path }}/files/krew.yaml --archive=/tmp/krew.tar.gz"
+  when: krew_dir.stat.exists == false
+
+- name: Add krew to $PATH.
+  copy:
+    dest: /etc/profile.d/krew.sh
+    content: 'PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"'
+
+- name: Update krew
+  become_user: "{{ target_user }}"
+  shell: "source /etc/profile.d/krew.sh && kubectl krew update"
+
+- name: Install krew plugins
+  become_user: "{{ target_user }}"
+  shell: "source /etc/profile.d/krew.sh && kubectl krew install {{ item }}"
+  with_items:
+    - pod-logs
+    - pod-shell
+    - get-all
+
+- name: Upgrade krew
+  become_user: "{{ target_user }}"
+  shell: "source /etc/profile.d/krew.sh && kubectl krew upgrade"
+
+- name: Enable kubectl autocomplete
+  copy: 
+    content: "source <(kubectl completion bash)"
+    dest: "/etc/profile.d/kubectl.sh"
