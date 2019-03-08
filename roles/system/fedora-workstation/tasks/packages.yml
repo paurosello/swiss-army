@@ -25,6 +25,7 @@
   with_items:
     - kubernetes.repo
     - gcloud.repo
+    - chrome.repo
 
 - name: add other third-party repositories
   get_url:
