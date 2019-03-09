@@ -1,0 +1,31 @@
+---
+- name: Check if installed
+  stat:
+    path: "{{ user_home_dir }}/.k9s"
+  register: k9s_dir
+
+- name: Get k9s installer
+  become_user: "{{ target_user }}"
+  get_url:
+    url: "https://github.com/derailed/k9s/releases/download/0.2.1/k9s_0.2.1_Linux_x86_64.tar.gz"
+    dest: /tmp/k9s.tar.gz
+  when: k9s_dir.stat.exists == false
+
+- name: ensure k9s directory exists
+  become_user: "{{ target_user }}"
+  file:
+    path: "{{ user_home_dir }}/.k9s"
+    state: directory
+  when: k9s_dir.stat.exists == false
+
+- name: Extract k9s.tar.gz into /tmp/k9s
+  become_user: "{{ target_user }}"
+  unarchive:
+    src: /tmp/k9s.tar.gz
+    dest: "{{ user_home_dir }}/.k9s"
+  when: k9s_dir.stat.exists == false
+
+- name: Add k9s to $PATH.
+  copy:
+    dest: /etc/profile.d/k9s.sh
+    content: 'PATH="{{ user_home_dir }}/.k9s:$PATH"'

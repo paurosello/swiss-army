@@ -1,0 +1,30 @@
+---
+- name: Clone kubectx repo
+  become: yes
+  become_user: "{{ target_user }}"
+  git:
+    repo: "https://github.com/ahmetb/kubectx.git"
+    dest: "{{ user_home_dir }}/.kubectx"
+    update: no
+    depth: 1
+
+- name: Get bash autocomplete path
+  command: pkg-config --variable=completionsdir bash-completion
+  register: bash_autocomplete
+
+- name: Create symbolic link 
+  file:
+    src: "{{ user_home_dir }}/.kubectx/completion/kubens.bash"
+    dest: "{{ bash_autocomplete.stdout }}/kubens"
+    state: link
+
+- name: Create symbolic link 
+  file:
+    src: "{{ user_home_dir }}/.kubectx/completion/kubectx.bash"
+    dest: "{{ bash_autocomplete.stdout }}/kubectx"
+    state: link
+
+- name: Add kubectx to $PATH.
+  copy:
+    dest: /etc/profile.d/kubectx.sh
+    content: 'PATH="{{ user_home_dir }}/.kubectx:$PATH"'
