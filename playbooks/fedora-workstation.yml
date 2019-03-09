@@ -9,6 +9,7 @@
     - apps/base-workstation
     - apps/bash
     - apps/git
+    - apps/helm
     - apps/powerline-go
     - apps/fzf
     - apps/ssh

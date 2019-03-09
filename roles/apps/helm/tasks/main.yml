@@ -1,0 +1,31 @@
+---
+- name: Check if installed
+  stat:
+    path: "{{ user_home_dir }}/.helm"
+  register: helm_dir
+
+- name: Get helm installer
+  become_user: "{{ target_user }}"
+  get_url:
+    url: "https://storage.googleapis.com/kubernetes-helm/helm-v2.13.0-linux-amd64.tar.gz"
+    dest: /tmp/helm.tar.gz
+  when: helm_dir.stat.exists == false
+
+- name: ensure helm directory exists
+  become_user: "{{ target_user }}"
+  file:
+    path: "{{ user_home_dir }}/.helm"
+    state: directory
+  when: helm_dir.stat.exists == false
+
+- name: Extract helm.tar.gz into user directory
+  become_user: "{{ target_user }}"
+  unarchive:
+    src: /tmp/helm.tar.gz
+    dest: "{{ user_home_dir }}/.helm"
+  when: helm_dir.stat.exists == false
+
+- name: Add helm to $PATH.
+  copy:
+    dest: /etc/profile.d/helm.sh
+    content: 'PATH="{{ user_home_dir }}/.helm/linux-amd64:$PATH"'
