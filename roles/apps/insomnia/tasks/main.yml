@@ -1,0 +1,32 @@
+---
+- name: Check if installed
+  stat:
+    path: "{{ user_home_dir }}/.insomnia"
+  register: insomnia_dir
+
+- name: ensure insomnia directory exists
+  become_user: "{{ target_user }}"
+  file:
+    path: "{{ user_home_dir }}/.insomnia"
+    state: directory
+  when: insomnia_dir.stat.exists == false
+
+- name: Get insomnia binary
+  become_user: "{{ target_user }}"
+  get_url:
+    url: "https://github.com/getinsomnia/insomnia/releases/download/v6.3.2/insomnia-6.3.2-x86_64.AppImage"
+    dest: "{{ user_home_dir }}/.insomnia/insomnia"
+  when: insomnia_dir.stat.exists == false
+
+- name: Set Permissions
+  file:
+    path: "{{ user_home_dir }}/.insomnia/insomnia"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    # when specifying mode using octal numbers, add a leading 0
+    mode: 0700
+
+- name: Add insomnia to $PATH.
+  copy:
+    dest: /etc/profile.d/insomnia.sh
+    content: 'PATH="{{ user_home_dir }}/.insomnia:$PATH"'
