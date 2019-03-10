@@ -55,3 +55,12 @@ alias gitd6='git dammit6'
 alias gitd7='git dammit7'
 alias gitd8='git dammit8'
 alias gitd9='git dammit9'
+
+## -- aliases: kubernetes [short versions] ------------------------
+alias k='kubectl'
+alias kg='kubectl get'
+alias kgpo='kubectl get pod'
+alias kgcm='kubectl get configmap'
+alias kgse='kubectl get secret'
+alias kgsv='kubectl get service'
+alias kgns='kubectl get namespace'
