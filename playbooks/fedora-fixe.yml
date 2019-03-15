@@ -19,6 +19,7 @@
     - apps/bench
     - apps/kubectx
     - apps/k9s
+    - apps/opa
     - apps/krew
     - apps/buttercup
     - role: gantsign.visual-studio-code

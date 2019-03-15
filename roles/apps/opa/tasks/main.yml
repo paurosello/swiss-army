@@ -1,0 +1,32 @@
+---
+- name: Check if installed
+  stat:
+    path: "{{ user_home_dir }}/.opa"
+  register: opa_dir
+
+- name: ensure opa directory exists
+  become_user: "{{ target_user }}"
+  file:
+    path: "{{ user_home_dir }}/.opa"
+    state: directory
+  when: opa_dir.stat.exists == false
+
+- name: Get opa installer
+  become_user: "{{ target_user }}"
+  get_url:
+    url: "https://github.com/open-policy-agent/opa/releases/download/v0.10.5/opa_linux_amd64"
+    dest: "{{ user_home_dir }}/.opa/opa"
+  when: opa_dir.stat.exists == false
+
+- name: Set Permissions
+  file:
+    path: "{{ user_home_dir }}/.opa/opa"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    # when specifying mode using octal numbers, add a leading 0
+    mode: 0700
+
+- name: Add opa to $PATH.
+  copy:
+    dest: /etc/profile.d/opa.sh
+    content: 'PATH="{{ user_home_dir }}/.opa:$PATH"'
